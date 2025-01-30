@@ -68,7 +68,7 @@ def home():
 
     if request.method == "POST":
         # Capturar datos del formulario
-        amount = request.form.get("amount", type=float)
+        amount_from = request.form.get("amount_from", type=float)
         from_currency = request.form.get("from_currency", default="USD")
         to_currency = request.form.get("to_currency", default="EUR")
 
@@ -93,7 +93,7 @@ def home():
 
                 if exchange_rate:
                     # Calcular el resultado
-                    result = round(amount * exchange_rate, 2)
+                    result = round(amount_from * exchange_rate, 2)
                 else:
                     error = "La moneda no está disponible."
             else:
@@ -103,7 +103,7 @@ def home():
             exchange_rate = get_rate_from_db(from_currency, to_currency)
 
             if exchange_rate:
-                result = round(amount * exchange_rate, 2)
+                result = round(amount_from * exchange_rate, 2)
                 error = "Se utilizó una copia local de las tasas de cambio."
             else:
                 error = "No se pudieron obtener las tasas de cambio ni de la API ni de los datos locales."
